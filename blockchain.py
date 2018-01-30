@@ -3,13 +3,29 @@ class Blockchain(object):
 		self.chain= []
 		self.current_transactions = []
 
-		def new_block(self):
-			#Crea nuevo bloque y lo agrega a la cadena
-			pass
+		#Crear bloque genesis
+		self.new_block(previous_hash=1, proof=100)
 
-		def new_transaction(self):
+		def new_block(self, proof, previous_hash=None):
+			#Crea nuevo bloque y lo agrega a la cadena
+			block ={
+				'index': len(self.chain + 1),
+				'timestamp': time(),
+				'transactions': self.current_transactions,
+				'proof': proof,
+				'previous_hash': previous_hash or self.hash(self.chan[-1]),
+			}
+
+		def new_transaction(self, sender, recipient, amount):
 			#Agrega una nueva transaccion a la lista
-			pass
+
+			self.current_transactions.append({
+				'sender': sender,
+				'recipient': recipient,
+				'amount': amount,
+				})
+			
+			return self.last_block['index'] + 1
 
 		@staticmethod
 		def hash(block):
